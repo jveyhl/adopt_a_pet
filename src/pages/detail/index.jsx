@@ -17,11 +17,13 @@ const localImages = {
   "Lizard.jpeg": LizardImage,
 };
 
+const missingImage = `${import.meta.env.BASE_URL}missing-animal.png`;
+
 const DetailPage = () => {
   const [petData, setPetData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
-  const [imageSrc, setImageSrc] = useState("/missing-animal.png");
+  const [imageSrc, setImageSrc] = useState(missingImage);
 
   const { id } = useParams();
 
@@ -32,7 +34,7 @@ const DetailPage = () => {
         const data = await getPetDetails(id);
         setPetData(data);
         // updated after github pages deployment presented image load bug
-        setImageSrc(localImages[data.localImage] || "/missing-animal.png");
+        setImageSrc(localImages[data.localImage] || missingImage);
         setError(false);
       } catch (error) {
         setError(true);
@@ -59,7 +61,7 @@ const DetailPage = () => {
           src={imageSrc}
           alt={petData.name}
           onError={() => {
-            setImageSrc("/missing-animal.png");
+            setImageSrc(missingImage);
           }}
         />
         <div className={styles.content}>
