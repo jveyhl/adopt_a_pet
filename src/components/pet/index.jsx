@@ -15,6 +15,8 @@ const localImages = {
   "Scales, Fins & Other.jpeg": LizardImage,
 };
 
+const missingImage = `${import.meta.env.BASE_URL}missing-animal.png`;
+
 export default function Pet({ animal }) {
   return (
     <Link
@@ -25,9 +27,9 @@ export default function Pet({ animal }) {
         {/*updated src after github pages deployment presented image load bug*/}
         <img
           className={styles.petImage}
-          src={localImages[animal.localImage] || "/missing-animal.png"}
+          src={localImages[animal.localImage] || missingImage}
           alt={animal.name}
-          onError={(e) => (e.currentTarget.src = "/missing-animal.png")}
+          onError={(e) => (e.currentTarget.src = missingImage)}
         />
       </div>
       <h3 className={styles.petName}>{animal.name}</h3>
